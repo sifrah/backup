@@ -139,7 +139,7 @@ module Backup
 
       def put_object(src, dest)
         md5 = Base64.encode64(Digest::MD5.file(src).digest).chomp
-        options = headers.merge("Content-MD5" => md5)
+        options = headers.merge("Content-MD5-fake" => md5)
         with_retries("PUT '#{bucket}/#{dest}'") do
           File.open(src, "r") do |file|
             connection.put_object(bucket, dest, file, options)
